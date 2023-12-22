@@ -7,7 +7,7 @@ import {
 import Modal from "./Modal";
 import { useRouter } from "next/navigation";
 import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { ThemeSupa, ViewType } from "@supabase/auth-ui-shared";
 import { useEffect } from "react";
 
 import useAuthModal from "@/hooks/useAuthModal";
@@ -16,7 +16,7 @@ const AuthModal = () => {
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
   const session = useSessionContext();
-  const { onClose, isOpen } = useAuthModal();
+  const { onClose, isOpen, view } = useAuthModal();
 
   const onChange = (open: boolean) => {
     if (!open) {
@@ -33,16 +33,21 @@ const AuthModal = () => {
 
   return (
     <Modal
-      title="Welcome Back"
-      description="Login to your account "
+      title={view === "sign_in" ? "Welcome Back" : "Welcome to Spotify"}
+      description={
+        view === "sign_in"
+          ? "Log In to your spotify account "
+          : "Sign Up to your spotify account"
+      }
       isOpen={isOpen}
       onChange={onChange}
     >
       <Auth
         supabaseClient={supabaseClient}
         magicLink
+        view={view as ViewType}
         theme="dark"
-        providers={["github"]}
+        providers={["github", "google"]}
         appearance={{
           theme: ThemeSupa,
           variables: {
