@@ -13,6 +13,7 @@ import { useUser } from "@/hooks/useUser";
 import { FaUserAlt } from "react-icons/fa";
 import toast from "react-hot-toast";
 import usePlayer from "@/hooks/usePlayer";
+import Link from "next/link";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -59,12 +60,18 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
           </button>
         </div>
         <div className="flex md:hidden gap-x-2 items-center">
-          <button className="rounded-full hover:opacity-75 transition bg-white flex items-center justify-center p-2">
+          <Link
+            href="/"
+            className="rounded-full hover:opacity-75 transition bg-white flex items-center justify-center p-2"
+          >
             <HiHome size={20} className="text-black" />
-          </button>
-          <button className="rounded-full hover:opacity-75 transition bg-white flex items-center justify-center p-2">
+          </Link>
+          <Link
+            href="/search"
+            className="rounded-full hover:opacity-75 transition bg-white flex items-center justify-center p-2"
+          >
             <BiSearch size={20} className="text-black" />
-          </button>
+          </Link>
         </div>
         <div className="flex justify-between items-center gap-x-4">
           {user ? (
